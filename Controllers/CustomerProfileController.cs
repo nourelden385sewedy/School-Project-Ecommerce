@@ -19,10 +19,10 @@ namespace School_ECommerce.Controllers
         [HttpGet("{id}")]
         public IActionResult GetProfileById(int id)
         {
-            var profile = _context.CustomerProfiles.Include(c => c.Customer).FirstOrDefault(p => p.Id == id);
+            var profile = _context.CustomerProfiles.FirstOrDefault(p => p.Id == id);
             if (profile == null)
             {
-                return NotFound($"Customer profile with id '{id}' not found");
+                return NotFound($"Sorry, Profile with id '{id}' not found");
             }
             return Ok(profile);
         }

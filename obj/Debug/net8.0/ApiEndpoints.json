@@ -1,5 +1,15 @@
 [
   {
+    "ContainingType": "School_ECommerce.Controllers.CategoryController",
+    "Method": "GetAllCategories",
+    "RelativePath": "api/Category",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "School_ECommerce.Controllers.CustomerController",
     "Method": "GetAllCustomers",
     "RelativePath": "api/Customer",
@@ -146,20 +156,10 @@
     "Parameters": [
       {
         "Name": "orderDto",
-        "Type": "School_ECommerce.DTOs.CreateOrder",
+        "Type": "School_ECommerce.DTOs.CreateOrderDto",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "School_ECommerce.Controllers.OrderController",
-    "Method": "Custom",
-    "RelativePath": "api/Order/custom",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -193,7 +193,7 @@
       },
       {
         "Name": "orderDto",
-        "Type": "School_ECommerce.DTOs.CreateOrder",
+        "Type": "School_ECommerce.DTOs.UpdateOrderDto",
         "IsRequired": true
       }
     ],
@@ -239,16 +239,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "School_ECommerce.Controllers.ProductController",
-    "Method": "Custom",
-    "RelativePath": "api/Product/custom",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {

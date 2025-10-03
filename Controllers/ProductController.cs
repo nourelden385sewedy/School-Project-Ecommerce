@@ -17,7 +17,7 @@ namespace School_ECommerce.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet] // Done
         public IActionResult GetAllProducts()
         {
             var products = _context.Products
@@ -37,7 +37,7 @@ namespace School_ECommerce.Controllers
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")] // Done
         public IActionResult GetProductById(int id)
         {
             var product = _context.Products
@@ -57,7 +57,7 @@ namespace School_ECommerce.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost] // Done
         public IActionResult CreateProduct(CreateProductDto pr)
         {
             if (pr == null)
@@ -77,7 +77,7 @@ namespace School_ECommerce.Controllers
         }
 
 
-        [HttpPut("update/{id}")]
+        [HttpPut("update/{id}")] // Done
         public IActionResult UpdateProduct(int id, CreateProductDto pr)
         {
             var product = _context.Products.FirstOrDefault(p => p.Id == id);
@@ -97,11 +97,5 @@ namespace School_ECommerce.Controllers
         }
 
 
-        [HttpGet("custom/")]
-        public IActionResult Custom()
-        {
-            
-            return Ok();
-        }
     }
 }

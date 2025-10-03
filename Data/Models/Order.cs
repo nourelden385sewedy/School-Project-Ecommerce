@@ -12,7 +12,7 @@ namespace School_ECommerce.Data.Models
 
         [Precision(8, 3)]
         public decimal TotalPrice { get; set; }
-        public DateTime DeliveryTime { get; set; } = DateTime.Now.AddDays(3);
+        public DateOnly DeliveryTime { get; set; } = DateOnly.FromDateTime(DateTime.Now.AddDays(2));
 
 
 

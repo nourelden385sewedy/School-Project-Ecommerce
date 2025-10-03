@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using School_ECommerce.Data;
 using School_ECommerce.Data.Models;
 using School_ECommerce.DTOs;
+using System.Reflection.Metadata.Ecma335;
 
 namespace School_ECommerce.Controllers
 {
@@ -18,7 +19,7 @@ namespace School_ECommerce.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet] // Done
         public IActionResult GetAllOrders()
         {
             var orders = _context.Orders.Include(o => o.Customer)
@@ -32,7 +33,7 @@ namespace School_ECommerce.Controllers
                     {
                         Id = o.Customer.Id,
                         Email = o.Customer.Email,
-                    }
+                    },
                 })
                 .ToList();
             if (orders.Count == 0)
@@ -42,7 +43,8 @@ namespace School_ECommerce.Controllers
             return Ok(orders);
         }
 
-        [HttpGet("{id}")]
+
+        [HttpGet("{id}")] // Done
         public IActionResult GetOrderById(int id)
         {
             var order = _context.Orders
@@ -61,13 +63,14 @@ namespace School_ECommerce.Controllers
                 .FirstOrDefault(o => o.Id == id);
             if (order == null)
             {
-                return NotFound("There aren't any orders right now!!");
+                return NotFound($"Sorry, There isn't any order with id '{id}' !!");
             }
             return Ok(order);
         }
 
-        [HttpPost("create")]
-        public IActionResult CreateOrder(CreateOrder orderDto)
+
+        [HttpPost("create")] // Done
+        public IActionResult CreateOrder(CreateOrderDto orderDto)
         {
             if (orderDto == null)
             {
@@ -77,47 +80,104 @@ namespace School_ECommerce.Controllers
             {
                 OrderId = orderDto.OrderId,
                 TotalPrice = orderDto.TotalPrice,
-                CustomerId = orderDto.CustomerId
+                CustomerId = orderDto.CustomerId,
             };
+
+
+            foreach (var item in orderDto.OrderItems)
+            {
+                var product = _context.Products.FirstOrDefault(p => p.Id == item.ProductId);
+
+                if (product == null) 
+                    return NotFound($"Product with ID '{item.ProductId}' not found.");
+
+                if (product.Amount < item.Amount)
+                    return BadRequest($"Not enough stock for product '{product.Id}'");
+
+                var orderitem = new OrderItem()
+                {
+                    ProductId = product.Id,
+                    Amount = item.Amount,
+                    PriceAtOrder = product.Price
+                };
+
+                product.Amount -= item.Amount;
+
+                orderDto.TotalPrice += (product.Price * (item.Amount ?? 1));
+
+                order.OrderItems.Add(orderitem);
+            }
+
+
+            order.TotalPrice = orderDto.TotalPrice;
+
+
             _context.Add(order);
             _context.SaveChanges();
             return Ok(new { message = "order Created successfully", orderDto });
         }
 
-        [HttpPut("update/{id}")]
-        public IActionResult UpdateOrder(int id, CreateOrder orderDto)
+
+        [HttpPut("update/{id}")] // Done
+        public IActionResult UpdateOrder(int id, UpdateOrderDto orderDto)
         {
+            var order = _context.Orders.Include(o => o.OrderItems).FirstOrDefault(o => o.Id == id);
+            if (order == null)
+                return NotFound($"Error, Order With ID '{id}' not found");
+
             if (orderDto == null)
-            {
                 return BadRequest("there is something went wrong");
+
+            order.TotalPrice = 0;
+
+            foreach (var oldItem in order.OrderItems)
+            {
+                var product = _context.Products.FirstOrDefault(p => p.Id == oldItem.ProductId);
+                if (product != null)
+                {
+                    product.Amount += oldItem.Amount ?? 0; // restore stock
+                }
             }
-            var order = _context.Orders.FirstOrDefault(o => o.Id == id);
-            order.OrderId = orderDto.OrderId;
-            order.TotalPrice = orderDto.TotalPrice;
+            order.OrderItems.Clear();
+
+
+            foreach (var item in orderDto.OrderItems)
+            {
+                var product = _context.Products.FirstOrDefault(p => p.Id == item.ProductId);
+
+                if (product == null)
+                    return NotFound($"Product with ID '{item.ProductId}' not found.");
+
+                if (product.Amount < item.Amount)
+                    return BadRequest($"Not enough stock for product '{product.Id}'");
+
+                var orderItem = new OrderItem
+                {
+                    ProductId = product.Id,
+                    Amount = item.Amount,
+                    PriceAtOrder = product.Price
+                };
+
+                // decrease stock
+                product.Amount -= item.Amount;
+
+                // recalc total
+                order.TotalPrice += product.Price * (item.Amount ?? 1);
+
+                order.OrderItems.Add(orderItem);
+            }
+
+
+
             _context.Update(order);
             _context.SaveChanges();
-            return Ok(new { message = "order Updated successfully",orderId = id, orderDto });
+            return Ok(new { message = "Order updated successfully",orderId = id, orderDto });
         }
 
 
-        [HttpGet("customer-id/{id}")]
+        [HttpGet("customer-id/{id}")] // Done
         public IActionResult GetOrderByCustomerId(int id)
         {
-
-            //var order = _context.Orders
-            //    .Select(o => new OrderDto
-            //    {
-            //        Id = o.Id,
-            //        OrderId = o.OrderId,
-            //        TotalPrice = o.TotalPrice,
-            //        DeliveryTime = o.DeliveryTime,
-            //        Customerdto = new CustomerOrderDto
-            //        {
-            //            Id = o.Customer.Id,
-            //            Email = o.Customer.Email
-            //        }
-            //    })
-            //    .FirstOrDefault(o => o.Id == id);
 
             var order = _context.Customers
                 .Select(oi => new CustomerDto
@@ -142,11 +202,5 @@ namespace School_ECommerce.Controllers
         }
 
 
-        [HttpGet("custom/")]
-        public IActionResult Custom()
-        {
-
-            return Ok();
-        }
     }
 }

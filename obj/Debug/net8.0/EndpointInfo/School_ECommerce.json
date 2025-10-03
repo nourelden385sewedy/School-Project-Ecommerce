@@ -5,6 +5,18 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/Category": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Customer": {
       "get": {
         "tags": [
@@ -225,17 +237,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateOrder"
+                "$ref": "#/components/schemas/CreateOrderDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateOrder"
+                "$ref": "#/components/schemas/CreateOrderDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateOrder"
+                "$ref": "#/components/schemas/CreateOrderDto"
               }
             }
           }
@@ -267,17 +279,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateOrder"
+                "$ref": "#/components/schemas/UpdateOrderDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateOrder"
+                "$ref": "#/components/schemas/UpdateOrderDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateOrder"
+                "$ref": "#/components/schemas/UpdateOrderDto"
               }
             }
           }
@@ -304,18 +316,6 @@
               "format": "int32"
             }
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Order/custom": {
-      "get": {
-        "tags": [
-          "Order"
         ],
         "responses": {
           "200": {
@@ -430,18 +430,6 @@
         }
       }
     },
-    "/api/Product/custom": {
-      "get": {
-        "tags": [
-          "Product"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/Try/s6": {
       "get": {
         "tags": [
@@ -471,7 +459,7 @@
         },
         "additionalProperties": false
       },
-      "CreateOrder": {
+      "CreateOrderDto": {
         "type": "object",
         "properties": {
           "orderId": {
@@ -485,6 +473,13 @@
           "customerId": {
             "type": "integer",
             "format": "int32"
+          },
+          "orderItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderItemDto"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -512,6 +507,42 @@
           "categoryId": {
             "type": "integer",
             "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderItemDto": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "amount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateOrderDto": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "totalPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "orderItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderItemDto"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false

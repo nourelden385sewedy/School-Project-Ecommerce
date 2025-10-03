@@ -2,13 +2,12 @@
 
 namespace School_ECommerce.DTOs
 {
-    public class CreateOrder
+    public class UpdateOrderDto
     {
-        public Guid OrderId { get; set; } = Guid.NewGuid();
+        public Guid OrderId { get; set; }
 
         [Precision(8, 3)]
         public decimal TotalPrice { get; set; }
-        public int CustomerId { get; set; }
-
+        public List<OrderItemDto> OrderItems { get; set; } = new List<OrderItemDto>();
     }
 }

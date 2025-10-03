@@ -20,7 +20,7 @@ namespace School_ECommerce.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet] // Done
         public IActionResult GetAllCustomers()
         {
             var customers = _context.Customers.ToList();
@@ -39,6 +39,7 @@ namespace School_ECommerce.Controllers
                         DeliveryTime = s.DeliveryTime
                     }).ToList()
                 }).ToList();
+
             if (customers.Count == 0)
             {
                 return NotFound("There aren't any customers");
@@ -47,7 +48,8 @@ namespace School_ECommerce.Controllers
             return Ok(customerDtos);
         }
 
-        [HttpGet("{id}")]
+
+        [HttpGet("{id}")] // Done
         public IActionResult GetCustomerById(int id)
         {
             var customer = _context.Customers.FirstOrDefault(x => x.Id == id);
@@ -73,21 +75,8 @@ namespace School_ECommerce.Controllers
             return Ok(customerDto);
         }
 
-        //[HttpGet("lazy/{id}")]
-        //public IActionResult GetCustomerByIdLazyLoading(int id)
-        //{
-        //    var customer = _context.Customers.FirstOrDefault(x => x.Id == id);
 
-        //    if (customer == null)
-        //    {
-        //        return NotFound($"This customer with id '{id}' doesn't exist");
-        //    }
-        //    var orders = customer.Orders;
-        //    return Ok(new {customer, orders});
-        //}
-
-
-        [HttpGet("email/{email}")]
+        [HttpGet("email/{email}")] // Done
         public IActionResult GetCustomerByEmail(string email)
         {
             var customer = _context.Customers.FirstOrDefault(x => x.Email == email);
@@ -114,7 +103,7 @@ namespace School_ECommerce.Controllers
         }
 
 
-        [HttpPost("create")]
+        [HttpPost("create")] // Done
         public IActionResult CreateCustomer(CreateCustomerDto customerDto)
         {
             if (customerDto == null)
@@ -133,7 +122,7 @@ namespace School_ECommerce.Controllers
         }
 
 
-        [HttpPut("update/{id}")]
+        [HttpPut("update/{id}")] // Done
         public IActionResult UpdateCustomer(int id, CreateCustomerDto customerDto)
         {
             var customer = _context.Customers.FirstOrDefault(x => x.Id == id);
@@ -149,7 +138,7 @@ namespace School_ECommerce.Controllers
         }
 
 
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("delete/{id}")] // Done
         public IActionResult DeleteCustomer(int id)
         {
             var customer = _context.Customers.FirstOrDefault(x => x.Id == id);
@@ -163,7 +152,18 @@ namespace School_ECommerce.Controllers
         }
 
 
+        //[HttpGet("lazy/{id}")]
+        //public IActionResult GetCustomerByIdLazyLoading(int id)
+        //{
+        //    var customer = _context.Customers.FirstOrDefault(x => x.Id == id);
 
-       
+        //    if (customer == null)
+        //    {
+        //        return NotFound($"This customer with id '{id}' doesn't exist");
+        //    }
+        //    var orders = customer.Orders;
+        //    return Ok(new {customer, orders});
+        //}
+
     }
 }

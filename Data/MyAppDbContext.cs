@@ -103,11 +103,11 @@ namespace School_ECommerce.Data
 
             // Orders
             modelBuilder.Entity<Order>().HasData(
-                new Order { Id = 1, OrderId = Guid.Parse("11111111-1111-1111-1111-111111111111"), CustomerId = 1, TotalPrice = 1649.47m, DeliveryTime = DateTime.UtcNow.AddDays(3) },
-                new Order { Id = 2, OrderId = Guid.Parse("22222222-2222-2222-2222-222222222222"), CustomerId = 2, TotalPrice = 89.98m, DeliveryTime = DateTime.UtcNow.AddDays(2) },
-                new Order { Id = 3, OrderId = Guid.Parse("33333333-3333-3333-3333-333333333333"), CustomerId = 3, TotalPrice = 79.98m, DeliveryTime = DateTime.UtcNow.AddDays(2) },
-                new Order { Id = 4, OrderId = Guid.Parse("44444444-4444-4444-4444-444444444444"), CustomerId = 1, TotalPrice = 139.98m, DeliveryTime = DateTime.UtcNow.AddDays(5) },
-                new Order { Id = 5, OrderId = Guid.Parse("55555555-5555-5555-5555-555555555555"), CustomerId = 4, TotalPrice = 139.98m, DeliveryTime = DateTime.UtcNow.AddDays(6) }
+                new Order { Id = 1, OrderId = Guid.Parse("11111111-1111-1111-1111-111111111111"), CustomerId = 1, TotalPrice = 1649.47m, DeliveryTime = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(3)) },
+                new Order { Id = 2, OrderId = Guid.Parse("22222222-2222-2222-2222-222222222222"), CustomerId = 2, TotalPrice = 89.98m, DeliveryTime = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(2)) },
+                new Order { Id = 3, OrderId = Guid.Parse("33333333-3333-3333-3333-333333333333"), CustomerId = 3, TotalPrice = 79.98m, DeliveryTime = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(2)) },
+                new Order { Id = 4, OrderId = Guid.Parse("44444444-4444-4444-4444-444444444444"), CustomerId = 1, TotalPrice = 139.98m, DeliveryTime = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(5)) },
+                new Order { Id = 5, OrderId = Guid.Parse("55555555-5555-5555-5555-555555555555"), CustomerId = 4, TotalPrice = 139.98m, DeliveryTime = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(6)) }
             );
 
             // Order Items 
@@ -139,6 +139,7 @@ namespace School_ECommerce.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomerProfile> CustomerProfiles { get; set; }
     }

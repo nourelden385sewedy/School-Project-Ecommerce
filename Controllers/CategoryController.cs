@@ -15,10 +15,15 @@ namespace School_ECommerce.Controllers
         }
 
 
-        //[HttpGet]
-        //public IActionResult Get()
-        //{
-        //    var categories = _context.Categories;
-        //}
+        [HttpGet]
+        public IActionResult GetAllCategories()
+        {
+            var categories = _context.Categories.ToList();
+            if (categories.Count == 0)
+            {
+                return NotFound("There is no Categories right now");
+            }
+            return Ok(categories);
+        }
     }
 }
