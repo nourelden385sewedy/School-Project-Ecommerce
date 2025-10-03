@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace School_ECommerce.Data.Models
 {
+    [Table("OrderItem")]
     public class OrderItem
     {
         public int Id { get; set; }

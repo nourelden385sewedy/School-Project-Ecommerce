@@ -121,6 +121,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "School_ECommerce.Controllers.CustomerProfileController",
+    "Method": "CreateCustomerProfile",
+    "RelativePath": "api/CustomerProfile/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "School_ECommerce.DTOs.CreateCustomerProfileDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "School_ECommerce.Controllers.OrderController",
     "Method": "GetAllOrders",
     "RelativePath": "api/Order",
@@ -211,22 +227,6 @@
   },
   {
     "ContainingType": "School_ECommerce.Controllers.ProductController",
-    "Method": "CreateProduct",
-    "RelativePath": "api/Product",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "pr",
-        "Type": "School_ECommerce.DTOs.CreateProductDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "School_ECommerce.Controllers.ProductController",
     "Method": "GetProductById",
     "RelativePath": "api/Product/{id}",
     "HttpMethod": "GET",
@@ -236,6 +236,22 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "School_ECommerce.Controllers.ProductController",
+    "Method": "CreateProduct",
+    "RelativePath": "api/Product/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pr",
+        "Type": "School_ECommerce.DTOs.CreateProductDto",
         "IsRequired": true
       }
     ],

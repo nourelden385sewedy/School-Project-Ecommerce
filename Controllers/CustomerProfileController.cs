@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using School_ECommerce.Data;
+using School_ECommerce.Data.Models;
+using School_ECommerce.DTOs;
 
 namespace School_ECommerce.Controllers
 {
@@ -26,5 +29,28 @@ namespace School_ECommerce.Controllers
             }
             return Ok(profile);
         }
+
+        [HttpPost("create")]
+        public IActionResult CreateCustomerProfile(CreateCustomerProfileDto p)
+        {
+
+            if (p.DateofBirth == null || p.CustomerId == null)
+                return BadRequest("There is missing data");
+
+            CustomerProfile newCus = new CustomerProfile()
+            {
+                Name = p.Name,
+                Address = p.Address,
+                DateofBirth = p.DateofBirth,
+                PhoneNumber = p.PhoneNumber,
+                CustomerId = p.CustomerId,
+            };
+
+            _context.CustomerProfiles.Add(newCus);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+
     }
 }

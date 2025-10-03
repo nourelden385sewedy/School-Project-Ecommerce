@@ -29,6 +29,7 @@ namespace School_ECommerce.Controllers
                     Amount = p.Amount,
                     Category = p.Category.Name,
                 }).ToList();
+
             if (products.Count == 0)
             {
                 return NotFound("There aren't any products right now");
@@ -57,13 +58,14 @@ namespace School_ECommerce.Controllers
         }
 
 
-        [HttpPost] // Done
+        [HttpPost("create")] // Done
         public IActionResult CreateProduct(CreateProductDto pr)
         {
             if (pr == null)
             {
                 return NotFound("there is a missing data or something went wrong");
             }
+
             Product p = new Product()
             {
                 Name = pr.Name,

@@ -8,8 +8,6 @@ namespace School_ECommerce.Data
 
         public MyAppDbContext(DbContextOptions<MyAppDbContext> options) : base(options) { }
 
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -22,6 +20,9 @@ namespace School_ECommerce.Data
             modelBuilder.Entity<Product>()
                 .HasMany(p => p.OrderItems)
                 .WithOne(o => o.Product);
+
+            //modelBuilder.Entity<OrderItem>()
+            //    .ToTable("OrderItem");
 
             modelBuilder.Entity<Customer>()
                 .HasOne(c => c.CustomerProfile)

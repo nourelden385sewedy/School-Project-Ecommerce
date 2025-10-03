@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using School_ECommerce.Data;
@@ -68,54 +69,94 @@ namespace School_ECommerce.Controllers
             return Ok(order);
         }
 
-
-        [HttpPost("create")] // Done
+        [HttpPost("create")]
         public IActionResult CreateOrder(CreateOrderDto orderDto)
         {
             if (orderDto == null)
-            {
-                return BadRequest("there is something went wrong");
-            }
+                return BadRequest("There is somtheing wrong");
+
             Order order = new Order()
             {
-                OrderId = orderDto.OrderId,
-                TotalPrice = orderDto.TotalPrice,
-                CustomerId = orderDto.CustomerId,
+                TotalPrice = 0,
+                CustomerId = orderDto.CustomerId
             };
-
 
             foreach (var item in orderDto.OrderItems)
             {
+
                 var product = _context.Products.FirstOrDefault(p => p.Id == item.ProductId);
 
-                if (product == null) 
+                if (product == null)
                     return NotFound($"Product with ID '{item.ProductId}' not found.");
 
                 if (product.Amount < item.Amount)
                     return BadRequest($"Not enough stock for product '{product.Id}'");
 
-                var orderitem = new OrderItem()
+                OrderItem orderItem = new OrderItem()
                 {
                     ProductId = product.Id,
-                    Amount = item.Amount,
-                    PriceAtOrder = product.Price
+                    PriceAtOrder = product.Price,
+                    Amount = item.Amount
                 };
 
                 product.Amount -= item.Amount;
+                order.TotalPrice += (product.Price * item.Amount ?? 1);
 
-                orderDto.TotalPrice += (product.Price * (item.Amount ?? 1));
-
-                order.OrderItems.Add(orderitem);
+                order.OrderItems.Add(orderItem);
             }
-
-
-            order.TotalPrice = orderDto.TotalPrice;
-
 
             _context.Add(order);
             _context.SaveChanges();
-            return Ok(new { message = "order Created successfully", orderDto });
+            return Ok("Order Created Successfully");
         }
+
+        //[HttpPost("create")] // Done
+        //public IActionResult CreateOrder(CreateOrderDto orderDto)
+        //{
+        //    if (orderDto == null)
+        //    {
+        //        return BadRequest("there is something went wrong");
+        //    }
+        //    Order order = new Order()
+        //    {
+        //        OrderId = orderDto.OrderId,
+        //        TotalPrice = orderDto.TotalPrice,
+        //        CustomerId = orderDto.CustomerId,
+        //    };
+
+
+        //    foreach (var item in orderDto.OrderItems)
+        //    {
+        //        var product = _context.Products.FirstOrDefault(p => p.Id == item.ProductId);
+
+        //        if (product == null)
+        //            return NotFound($"Product with ID '{item.ProductId}' not found.");
+
+        //        if (product.Amount < item.Amount)
+        //            return BadRequest($"Not enough stock for product '{product.Id}'");
+
+        //        var orderitem = new OrderItem()
+        //        {
+        //            ProductId = product.Id,
+        //            Amount = item.Amount,
+        //            PriceAtOrder = product.Price
+        //        };
+
+        //        product.Amount -= item.Amount;
+
+        //        orderDto.TotalPrice += (product.Price * (item.Amount ?? 1));
+
+        //        order.OrderItems.Add(orderitem);
+        //    }
+
+
+        //    order.TotalPrice = orderDto.TotalPrice;
+
+
+        //    _context.Add(order);
+        //    _context.SaveChanges();
+        //    return Ok(new { message = "order Created successfully", orderDto });
+        //}
 
 
         [HttpPut("update/{id}")] // Done
