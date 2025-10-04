@@ -463,7 +463,340 @@
         }
       }
     },
-    "/api/Try/s6": {
+    "/api/Try/1": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/2": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/3": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/4": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/5": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/6": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/7": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/8": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/9": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/10/{id}": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/11": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/12": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/13": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/14": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/15": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/19": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/20": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/21": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/22": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/23": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/24": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/25": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/26/{email}": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/27": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/28": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/29": {
+      "get": {
+        "tags": [
+          "Try"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Try/30": {
       "get": {
         "tags": [
           "Try"
