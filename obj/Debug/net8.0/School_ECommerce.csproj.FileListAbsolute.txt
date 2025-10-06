@@ -291,8 +291,6 @@ D:\Programming languages\Web API\School-Project-Ecommerce\obj\Debug\net8.0\refin
 D:\Programming languages\Web API\School-Project-Ecommerce\obj\Debug\net8.0\School_ECommerce.pdb
 D:\Programming languages\Web API\School-Project-Ecommerce\obj\Debug\net8.0\School_ECommerce.genruntimeconfig.cache
 D:\Programming languages\Web API\School-Project-Ecommerce\obj\Debug\net8.0\ref\School_ECommerce.dll
-D:\Programming languages\Web API\School-Project-Ecommerce\bin\Debug\net8.0\Castle.Core.dll
-D:\Programming languages\Web API\School-Project-Ecommerce\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Proxies.dll
 D:\School\Download Study Seniors First Semster\Web API\School-Project-Ecommerce\obj\Debug\net8.0\School_ECommerce.csproj.AssemblyReference.cache
 D:\School\Download Study Seniors First Semster\Web API\School-Project-Ecommerce\obj\Debug\net8.0\rpswa.dswa.cache.json
 D:\School\Download Study Seniors First Semster\Web API\School-Project-Ecommerce\obj\Debug\net8.0\School_ECommerce.GeneratedMSBuildEditorConfig.editorconfig

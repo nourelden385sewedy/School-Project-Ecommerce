@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using School_ECommerce.Data;
 using School_ECommerce.Data.Models;
 using School_ECommerce.DTOs;
+using School_ECommerce.Repos;
+using School_ECommerce.Repos.Interfaces;
 
 namespace School_ECommerce.Controllers
 {
@@ -12,24 +15,23 @@ namespace School_ECommerce.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-
         private readonly MyAppDbContext _context;
-        public CustomerController(MyAppDbContext context)
+        private readonly IGenericRepo<Customer> _customerRepo;
+        public CustomerController(MyAppDbContext context, IGenericRepo<Customer> customerRepo)
         {
             _context = context;
+            _customerRepo = customerRepo;
         }
 
-
         [HttpGet] // Done
-        public IActionResult GetAllCustomers()
+        public async Task<IActionResult> GetAllCustomersAsync()
         {
-            var customers = _context.Customers.ToList();
-            List<CustomerDto> customerDtos = _context.Customers
-                .Select(c => new CustomerDto
-                {
-                    Id = c.Id,
-                    Email = c.Email,
-                    Orders = _context.Orders
+            var customers = await _customerRepo.GetAllAsync();
+            var dto = customers.Select(c => new CustomerDto
+            {
+                Id = c.Id,
+                Email = c.Email,
+                Orders = _context.Orders
                     .Where(x => x.CustomerId == c.Id)
                     .Select(s => new OrderDto
                     {
@@ -38,22 +40,16 @@ namespace School_ECommerce.Controllers
                         TotalPrice = s.TotalPrice,
                         DeliveryTime = s.DeliveryTime
                     }).ToList()
-                }).ToList();
+            }).ToList();
 
-            if (customers.Count == 0)
-            {
-                return NotFound("There aren't any customers");
-            }
-
-            return Ok(customerDtos);
+            return Ok(dto);
         }
 
 
         [HttpGet("{id}")] // Done
-        public IActionResult GetCustomerById(int id)
+        public async Task<IActionResult> GetCustomerByIdAsync(int id)
         {
-            var customer = _context.Customers.FirstOrDefault(x => x.Id == id);
-
+            var customer = await _customerRepo.GetByIdAsync(id);
             if (customer == null)
             {
                 return NotFound($"This customer with id '{id}' doesn't exist");
@@ -72,6 +68,7 @@ namespace School_ECommerce.Controllers
                     DeliveryTime = o.DeliveryTime,
                 }).ToList()
             };
+            
             return Ok(customerDto);
         }
 
@@ -104,7 +101,7 @@ namespace School_ECommerce.Controllers
 
 
         [HttpPost("create")] // Done
-        public IActionResult CreateCustomer(CreateCustomerDto customerDto)
+        public async Task<IActionResult> CreateCustomer(CreateCustomerDto customerDto)
         {
             if (customerDto == null)
             {
@@ -116,38 +113,38 @@ namespace School_ECommerce.Controllers
                 Password = customerDto.Password
             };
 
-            _context.Customers.Add(customer);
-            _context.SaveChanges();
+            await _customerRepo.AddAsync(customer);
+            await _customerRepo.SaveChangesAsync();
             return Ok("Customer Created Successfully");
         }
 
 
         [HttpPut("update/{id}")] // Done
-        public IActionResult UpdateCustomer(int id, CreateCustomerDto customerDto)
+        public async Task<IActionResult> UpdateCustomer(int id, CreateCustomerDto customerDto)
         {
-            var customer = _context.Customers.FirstOrDefault(x => x.Id == id);
+            var customer = await _customerRepo.GetByIdAsync(id);
             if (customerDto == null || customer == null)
             {
                 return BadRequest("Customer data is missing, can't update a customer Or this customer doesn't exist");
             }
             customer.Email = customerDto.Email;
             customer.Password = customerDto.Password;
-            _context.Customers.Update(customer);
-            _context.SaveChanges();
+            _customerRepo.Update(customer);
+            await _customerRepo.SaveChangesAsync();
             return Ok(customer);
         }
 
 
         [HttpDelete("delete/{id}")] // Done
-        public IActionResult DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteCustomer(int id)
         {
-            var customer = _context.Customers.FirstOrDefault(x => x.Id == id);
+            var customer = await _customerRepo.GetByIdAsync(id);
             if (customer == null)
             {
                 return NotFound($"This customer with id '{id}' doesn't exist, can't delete this customer");
             }
-            _context.Customers.Remove(customer);
-            _context.SaveChanges();
+            _customerRepo.Delete(customer);
+            await _customerRepo.SaveChangesAsync();
             return Ok("Customer Deleted Successfully");
         }
 

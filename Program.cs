@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using School_ECommerce.Data;
+using School_ECommerce.Repos;
+using School_ECommerce.Repos.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +14,13 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddDbContext<MyAppDbContext>
-    (options => options.UseSqlServer(builder.Configuration.GetConnectionString("HomeConn")));
+    (options => options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolConnection")));
+
+// Repos
+builder.Services.AddScoped<ICustomerRepo, CustomerRepo>();
+
+builder.Services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
+
 
 
 var app = builder.Build();
